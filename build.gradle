@@ -74,8 +74,8 @@ task deploy {
 task setupPcfEnv {
     doLast {
         [
-            "cf create-service p-mysql 100mb-dev movie-database",
-            "cf create-service p-mysql 100mb-dev album-database",
+            "cf create-service p-mysql 100mb movie-database",
+            "cf create-service p-mysql 100mb album-database",
             "cf create-service p-identity basic-sso movie-fun-sso",
         ].each { println it.execute().text }
     }
