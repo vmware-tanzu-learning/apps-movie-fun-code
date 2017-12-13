@@ -17,6 +17,7 @@
 package org.superbiz.moviefun.movies;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,7 +29,7 @@ import java.util.List;
 @Repository
 public class MoviesBean {
 
-    @PersistenceContext(unitName = "movies")
+    @PersistenceContext (unitName = "moviesPU")
     private EntityManager entityManager;
 
     public Movie find(Long id) {
@@ -39,14 +40,17 @@ public class MoviesBean {
         entityManager.persist(movie);
     }
 
+    @Transactional
     public void editMovie(Movie movie) {
         entityManager.merge(movie);
     }
 
+    @Transactional
     public void deleteMovie(Movie movie) {
         entityManager.remove(movie);
     }
 
+    @Transactional
     public void deleteMovieId(long id) {
         Movie movie = entityManager.find(Movie.class, id);
         deleteMovie(movie);
