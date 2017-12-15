@@ -1,0 +1,39 @@
+---
+resources: 
+- name: apps-movie-fun-code
+  type: git
+  source:
+    uri: https://github.com/PrasanthMohanCognizant/apps-movie-fun-code
+    branch: master
+
+- name: deploy-apps-movie-fun
+  type: cf
+  source:
+    api: https://api.system.cumuluslabs.io
+    username: {{cf-user}}
+    password: {{cf-password}}
+    organization: pmohan-PAL-Dec11
+    space: sandbox
+    skip_cert_check: true
+
+jobs:
+- name: test
+  public: true
+  plan:
+  - get: apps-movie-fun-code
+    trigger: true
+  - task: test
+    file: apps-movie-fun-code/ci/tasks/test.yml
+
+- name: deploy
+  public: true
+  plan:
+  - get: apps-movie-fun-code
+    trigger: true
+    passed: [test]
+  - task: package
+    file: apps-movie-fun-code/ci/tasks/package.yml
+  - put: deploy-apps-movie-fun
+    params:
+      manifest: apps-movie-fun-code/manifest.yml
+      path: package-output/apps-movie-fun-code.jar

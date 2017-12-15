@@ -1,0 +1,8 @@
+applications:
+- name: apps-movie-fun
+  path: target/apps-movie-fun-1.0.jar
+  random-route: true
+#  host: attendee-jl
+  memory: 768M
+  instances: 1
+  buildpack: java_buildpack
