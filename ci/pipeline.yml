@@ -1,0 +1,16 @@
+resources:
+- name: movie-service
+  type: git
+  source:
+    uri: https://github.com/vijaykothapalli07/apps-movie-fun-code  #<---- REPLACE ME
+    branch: concourse_deployment
+
+- name: deploy-movie-service
+  type: cf
+  source:
+    api: https://api.system.cumuluslabs.io        #<---- REPLACE ME
+    username: {{cf-user}}
+    password: {{cf-password}}
+    organization: vkothapalli-PAL-Dec11    #<---- REPLACE ME
+    space: sandbox         #<---- REPLACE ME
+    skip_cert_check: false
