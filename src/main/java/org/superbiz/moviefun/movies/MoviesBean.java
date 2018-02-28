@@ -14,9 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.superbiz.moviefun;
+package org.superbiz.moviefun.movies;
 
-import javax.ejb.Stateless;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -24,10 +30,11 @@ import javax.persistence.criteria.*;
 import javax.persistence.metamodel.EntityType;
 import java.util.List;
 
-@Stateless
+@Repository
 public class MoviesBean {
 
-    @PersistenceContext(unitName = "movie-unit")
+    @PersistenceContext(unitName = "moviesPU")
+    //@Qualifier(value = "moviesEntityManager")
     private EntityManager entityManager;
 
     public Movie find(Long id) {
