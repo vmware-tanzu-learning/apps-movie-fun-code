@@ -25,12 +25,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 @Repository
+@Transactional(transactionManager = "albumsTransactionManager")
+
 public class AlbumsBean {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "albums")
     private EntityManager entityManager;
 
-    @Transactional
     public void addAlbum(Album album) {
         entityManager.persist(album);
     }
