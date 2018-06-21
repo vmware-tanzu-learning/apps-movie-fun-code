@@ -1,3 +1,4 @@
+
 spring:
   jpa:
     generate-ddl: true
@@ -14,3 +15,6 @@ spring:
 logging.level:
   root: WARN
   org.superbiz.moviefun: DEBUG
+
+rabbitmq:
+  queue: my-rabbit-queue
